@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Title from '../components/Title';
 import CartTotal from '../components/CartTotal';
 import { assets } from '../assets/assets';
@@ -8,6 +8,14 @@ import { toast } from 'react-toastify';
 
 const PlaceOrder = () => {
   const { navigate, backendUrl, token, cartItems, setCartItems, getCartAmount, delivery_fee, products } = useContext(ShopContext);
+
+  // Auth guard — redirect to login if not authenticated
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+      toast.error('Please login to place an order');
+    }
+  }, [token, navigate]);
 
   const [method, setMethod] = useState('cod');
   const [isSubmitting, setIsSubmitting] = useState(false);

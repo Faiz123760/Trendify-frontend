@@ -11,7 +11,7 @@ const ShopContextProvider = (props) => {
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]);
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState(localStorage.getItem('token') || '');
   const navigate = useNavigate();
 
   const currency = "$";
@@ -158,11 +158,11 @@ const ShopContextProvider = (props) => {
   }, [getProductsData]);
 
   useEffect(() => {
-    if(!token && localStorage.getItem("token")) {
-      setToken(localStorage.getItem("token"));
-      getUserCart(localStorage.getItem("token"));
+    if(token) {
+      getUserCart(token);
     }
-  },[token]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   const value = {
   

@@ -1,29 +1,73 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Brand Tokens matching DESIGN.md exactly */
+  --colors-primary: #cc785c;
+  --colors-primary-active: #a9583e;
+  --colors-canvas: #faf9f5;
+  --colors-surface-card: #efe9de;
+  --colors-surface-soft: #f5f0e8;
+  --colors-surface-dark: #181715;
+  --colors-surface-dark-elevated: #252320;
+  --colors-hairline: #e6dfd8;
+  --colors-ink: #141413;
+  --colors-body: #3d3d3a;
+  --colors-muted: #6c6a64;
+  --colors-on-primary: #ffffff;
+  --colors-on-dark: #faf9f5;
+}
+
 * {
-    font-family: Outfit;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+body {
+  background-color: var(--colors-canvas);
+  color: var(--colors-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global Display Serif Heading Overrides */
+h1, h2, h3, h4, .prata-regular, .display-serif {
+  font-family: 'Cormorant Garamond', Garamond, 'Times New Roman', serif !important;
+  color: var(--colors-ink);
+  letter-spacing: -0.02em;
+  font-weight: 400;
 }
 
 a.active hr {
-    @apply block;
-}
-
-.prata-regular {
-    font-family: "Prata", serif;
-    font-weight: 400;
-    font-style: normal;
+  @apply block;
 }
 
 ::-webkit-scrollbar {
-    display: none;
+  width: 6px;
+  height: 6px;
 }
 
-@media (max-width:640px) {
-    a.active {
-        @apply text-white bg-black;
-    }
+::-webkit-scrollbar-track {
+  background: var(--colors-canvas);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--colors-hairline);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--colors-muted);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

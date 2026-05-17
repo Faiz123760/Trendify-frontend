@@ -13,7 +13,6 @@ const VerifyPayment = () => {
   // Get parameters from URL
   const success = searchParams.get('success') === 'true'; // Convert to boolean
   const orderId = searchParams.get('orderId');
-  const paymentMethod = searchParams.get('method') || 'stripe'; // Default to stripe
 
   const verifyPayment = async () => {
     if (!token || !orderId) {
@@ -25,9 +24,7 @@ const VerifyPayment = () => {
     try {
       setIsVerifying(true);
       
-      const endpoint = paymentMethod === 'razorpay' 
-        ? '/api/order/verifyRazorpay' 
-        : '/api/order/verifyStripe';
+      const endpoint = '/api/order/verifyStripe';
 
       const response = await axios.post(
         `${backendUrl}${endpoint}`,

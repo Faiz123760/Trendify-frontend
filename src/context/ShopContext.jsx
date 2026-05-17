@@ -8,14 +8,16 @@ export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
   const [search, setSearch] = useState("");
-  const [showSearch, setShowSearch] = useState(false);
+  const [showSearch, setShowSearch] = useState(true);
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState(localStorage.getItem('token') || '');
+  const [wishlist, setWishlist] = useState([]);
+  const [searchCategory, setSearchCategory] = useState('All');
   const navigate = useNavigate();
 
-  const currency = "$";
-  const delivery_fee = 10;
+  const currency = "₹";
+  const delivery_fee = 99;
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
@@ -60,6 +62,25 @@ const ShopContextProvider = (props) => {
         console.log(error);
         toast.error(error.message);
       }
+    }
+  };
+
+  const toggleWishlist = async (productId) => {
+    if (!token) {
+      toast.error("Please Login First to Add to Wishlist");
+      return;
+    }
+    try {
+      const response = await axios.post(backendUrl + '/api/wishlist/toggle', { productId }, { headers: { token } });
+      if (response.data.success) {
+        setWishlist(response.data.wishlist);
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -127,7 +148,12 @@ const ShopContextProvider = (props) => {
     try {
       const response = await axios.get(`${backendUrl}/api/product/list`);
       if (response.data.success) {
-        setProducts(response.data.products);
+        // Dynamic pricing multiplier for realistic premium Indian Rupee catalog pricing
+        const scaledProducts = response.data.products.map(p => ({
+          ...p,
+          price: Math.round(p.price * 12.5)
+        }));
+        setProducts(scaledProducts);
       } else {
         toast.error(response.data.message);
       }
@@ -151,6 +177,17 @@ const ShopContextProvider = (props) => {
     }
   }
 
+  const getUserWishlist = async (token)=>{
+    try {
+      const response = await axios.post(backendUrl+'/api/wishlist/get',{}, { headers: { token } });
+      if (response.data.success) {
+        setWishlist(response.data.wishlist);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems"));
     if (storedCartItems) setCartItems(storedCartItems);
@@ -160,9 +197,12 @@ const ShopContextProvider = (props) => {
   useEffect(() => {
     if(token) {
       getUserCart(token);
+      getUserWishlist(token);
+    } else {
+      setWishlist([]);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  },[token]);
 
   const value = {
   
@@ -182,7 +222,11 @@ const ShopContextProvider = (props) => {
     backendUrl,
     setToken,
     token,
-    setCartItems
+    setCartItems,
+    wishlist,
+    toggleWishlist,
+    searchCategory,
+    setSearchCategory
   };
 
   return (

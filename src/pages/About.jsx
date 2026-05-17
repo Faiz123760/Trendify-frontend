@@ -12,12 +12,12 @@ const About = () => {
       <div className='flex flex-col gap-16 my-10 md:flex-row'>
         <img className='w-full md:max-w-[450px]' src={assets.about_img} alt="About Photo" />
         <div className='flex flex-col justify-center gap-6 text-gray-600 md:w-2/4'>
-          <p>Welcome to Trendify, where style meets quality. Our mission is to bring you the latest fashion trends and must-have items, all curated with an eye for quality and design. We believe that everyone deserves to express themselves through fashion, and we're here to make that easier and more enjoyable. Our collections are carefully selected to offer you a range of options that cater to every taste and occasion.</p>
-          <p>At Trendify, we prioritize your satisfaction. From the moment you browse our site to the day your order arrives, we are dedicated to providing a seamless shopping experience. Our team is always on the lookout for the latest trends, ensuring that you have access to the freshest styles as soon as they hit the runway. Thank you for choosing Trendify. We’re excited to be a part of your style journey.</p>
-          <b className='text-gray-800'>Our Mission</b>
-          <p>At Trendify, our mission is to empower you to express your unique style with high-quality, on-trend fashion. We strive to make fashion accessible to all, offering diverse products that inspire confidence.</p>
-          <b className='text-gray-800'>Our Vision</b>
-          <p>At Trendify, our vision is to be a global fashion leader, known for cutting-edge style and quality. We aim to inspire confidence and creativity, making Trendify the go-to choice for individual expression.</p>
+          <p>Born out of India’s rich textile legacy, Trendify is your premium thinking partner in style. Our collections blend organic, long-staple Indian cottons with contemporary global cuts. Every garment is a modern take on daily elegance, designed in Delhi and meticulously crafted to celebrate absolute comfort, tailored drape, and perfect summer breathability.</p>
+          <p>We work directly with textile collectives and modern design hubs across Jaipur, Surat, and Coimbatore to source organic fibres, supporting local craftsmanship while ensuring premium quality. From your first click to the moment your package arrives at your doorstep, we are dedicated to a seamless, premium, and purely customer-first shopping experience.</p>
+          <b className='text-gray-800'>Our Legacy</b>
+          <p>To honor India's generational heritage of fine handlooms and premium organic cotton, translating centuries of textile mastery into effortless, modern daily wear.</p>
+          <b className='text-gray-800'>Our Commitment</b>
+          <p>To offer premium design, meticulous tailoring, and sustainable local sourcing—delivering standard-setting Indian craftsmanship to style-focused closets worldwide.</p>
         </div>
       </div>
       <div className='py-4 text-xl'>
